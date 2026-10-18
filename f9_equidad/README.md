@@ -1,5 +1,12 @@
 # F9 - Equidad por edad
 
+Two calculation functions in `equidad.py`: `tasa_falsos_positivos(y, pred,
+grupo)` returns the false-positive rate per age group (cut at
+`SENSIBLE_AGE = 50`), and `razon_equidad(tasas)` returns the lower/higher ratio
+between both rates. It only measures: it applies no age-specific rule.
+
+_Details below are in Spanish._
+
 Dos funciones de calculo en `equidad.py`: `tasa_falsos_positivos(y, pred, grupo)`
 devuelve el FPR de cada grupo de edad (corte en `SENSIBLE_AGE = 50`, el mismo
 valor que `SENSITIVE_AGE` en `f3_riesgo/f3_riesgo.py:31`), y `razon_equidad(tasas)`

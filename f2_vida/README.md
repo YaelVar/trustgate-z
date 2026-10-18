@@ -1,5 +1,13 @@
 # F2 — Vida (liveness)
 
+Scores whether the face in an image belongs to a real person or to a
+presentation attack (printed photo, screen, mask). Around 180 handcrafted
+features plus LightGBM. Provisional: a control using only file width, height
+and size scores AUC 0,987, so these results do not prove liveness detection on
+their own.
+
+_Details below are in Spanish._
+
 Módulo de TrustGate Z que puntúa si el rostro de una imagen es de una persona real o de un ataque de presentación (foto impresa, pantalla, máscara). Su puntaje alimenta la política (F5) y la explicación (F7).
 
 **Estado:** provisional. Un control de atajo de captura (abajo) impide afirmar detección de vida con estos datos.

@@ -1,5 +1,13 @@
 # F2a — Presencia de rostro
 
+Decides whether an image contains a face, before liveness (F2). Two-class
+model: HOG in greyscale, PCA 100 and logistic regression, faces against
+textures. Provisional: in testing 8,67 % of textures are accepted as a face,
+above the 5 % target. It tells faces from textures, not face presence against
+any image.
+
+_Details below are in Spanish._
+
 Módulo de TrustGate Z que decide si una imagen contiene un rostro, antes de pasar a vida (F2).
 
 **Estado:** provisional. 1.902 usadas de 2.018 descargadas.

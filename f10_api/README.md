@@ -1,5 +1,12 @@
 # F10 - Servicio HTTP de decision
 
+Exposes the F5 policy over HTTP, with the F7 explanation and the F8 audit
+record. It implements no decision logic of its own: it only orchestrates those
+three modules. `POST /v1/decidir` requires a Bearer token; `GET /v1/salud` does
+not. Code in `app.py`.
+
+_Details below are in Spanish._
+
 Expone la politica de F5 por HTTP, con la explicacion de F7 y el registro de
 auditoria de F8. No implementa logica de decision propia: solo orquesta esos
 tres modulos. Codigo en `app.py`.
