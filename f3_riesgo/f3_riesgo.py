@@ -29,16 +29,16 @@ LABEL = "fraud_bool"
 MONTH = "month"
 AGE = "customer_age"
 SENSITIVE_AGE = 50                 # grupo sensible: 50 anios o mas
-TRAIN_MONTHS = [0, 1, 2]           # el ultimo mes de entrenamiento se usa como validacion
-TEST_MONTHS = [3, 4, 5, 6, 7]
+TRAIN_MONTHS = [0, 1, 2, 3, 4, 5]  # paper BAF: 6 primeros meses entrenan; el ultimo (5) valida
+TEST_MONTHS = [6, 7]               # paper BAF: los 2 ultimos meses prueban
 TARGET_FPR = 0.05                  # umbral global fijado a 5 % de falsos positivos
 USE_AGE_AS_FEATURE = False         # por defecto el modelo NO ve la edad
-MISSING_MINUS_ONE = [              # columnas donde -1 significa "sin dato" (verificar)
+MISSING_MINUS_ONE = [              # columnas donde -1 significa "sin dato" (revisado en Base.csv)
     "prev_address_months_count", "current_address_months_count",
-    "bank_months_count", "session_length_in_minutes",
+    "bank_months_count", "session_length_in_minutes", "device_distinct_emails_8w",
 ]
 CATEGORICAL = ["payment_type", "employment_status", "housing_status", "source", "device_os"]
-MODEL_VERSION = "f3-lgbm-0.1"
+MODEL_VERSION = "f3-lgbm-0.2"
 
 
 # ---- Preprocesamiento ----
@@ -151,8 +151,17 @@ def evaluate(model, df_val, df_test):
     y, s = df_test[LABEL].values, model.score(df_test)
     grupo = np.where(df_test[AGE].values >= SENSITIVE_AGE, f"{SENSITIVE_AGE}+", f"<{SENSITIVE_AGE}")
     print(f"AUC prueba: {roc_auc_score(y, s):.4f} | umbral (FPR {TARGET_FPR:.0%} en validacion): {thr:.4f}")
+    pred = s >= thr
+    print(f"Global en prueba: TPR {(pred & (y == 1)).sum() / max((y == 1).sum(), 1):.4f} "
+          f"a FPR {(pred & (y == 0)).sum() / max((y == 0).sum(), 1):.4f} "
+          f"(el paper de BAF reporta TPR a FPR fijo de 5 %)")
     print("Equidad por edad (mismo umbral para todos):")
-    print(group_metrics(y, s, thr, grupo).round(4).to_string(index=False))
+    gm = group_metrics(y, s, thr, grupo)
+    print(gm.round(4).to_string(index=False))
+    fprs = gm["fpr"].dropna()
+    if len(fprs) == 2 and fprs.max() > 0:
+        print(f"Igualdad predictiva (FPR menor / FPR mayor): {fprs.min() / fprs.max():.3f} "
+              f"(1.0 = igual; es la metrica de equidad del paper de BAF)")
     frac, mean_pred = calibration_curve(y, s, n_bins=10, strategy="quantile")
     print(f"Brier: {brier_score_loss(y, s):.4f} | calibracion (predicho -> observado):")
     for a, b in zip(mean_pred, frac):
@@ -204,8 +213,10 @@ def main():
     ap.add_argument("--data")
     ap.add_argument("--demo", action="store_true")
     ap.add_argument("--parity", action="store_true")
+    ap.add_argument("--sample", type=int, help="filas aprox. de una muestra estratificada por mes y etiqueta")
     ap.add_argument("--out", default="f3_out")
     a = ap.parse_args()
+    global LABEL
 
     if a.parity:
         return parity(a.out)
@@ -216,6 +227,16 @@ def main():
         df = load_data(a.data)
     else:
         ap.error("usa --demo o --data")
+
+    if LABEL not in df.columns and "is_fraud" in df.columns:   # el paper la llama is_fraud
+        LABEL = "is_fraud"
+    for c in (LABEL, MONTH, AGE):
+        if c not in df.columns:
+            raise SystemExit(f"Falta la columna '{c}'. Columnas del archivo: {list(df.columns)}")
+    print(f"Etiqueta: {LABEL} | tasa de fraude: {df[LABEL].mean():.3%} | filas: {len(df)}")
+    if a.sample and len(df) > a.sample:
+        df = df.groupby([MONTH, LABEL]).sample(frac=a.sample / len(df), random_state=42)
+        print(f"Muestra estratificada: {len(df)} filas | tasa de fraude: {df[LABEL].mean():.3%}")
 
     last_train = max(TRAIN_MONTHS)
     df_tr = df[df[MONTH].isin(TRAIN_MONTHS) & (df[MONTH] != last_train)]
