@@ -1,5 +1,12 @@
 # F5 - Politica de decision
 
+Combines the evidence from F1 (quality), F2a (face presence), F2 (liveness) and
+F3 (fraud risk) into one traceable action: APROBAR, RECAPTURAR, VERIFICAR or
+RETENER, always with a reason. The order of checks is fixed and the first
+failing step decides. Contract and code in `politica.py`.
+
+_Details below are in Spanish._
+
 Combina la evidencia de F1 (calidad), F2a (presencia de rostro), F2 (deteccion
 de vida) y F3 (riesgo de fraude) en una sola accion trazable: APROBAR,
 RECAPTURAR, VERIFICAR o RETENER. Contrato y codigo en `politica.py`.

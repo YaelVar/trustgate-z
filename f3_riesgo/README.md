@@ -1,5 +1,12 @@
 # F3 — Riesgo de la solicitud
 
+Estimates the fraud risk of a bank account application from tabular data; it
+uses no images. Returns a risk score and the factors that push it most, for the
+policy (F5) and the explanation (F7). Frozen for the MVP. The false-positive-rate
+ratio by age is 0,456 ± 0,018, a large gap reported without softening.
+
+_Details below are in Spanish._
+
 Módulo de TrustGate Z que estima el riesgo de fraude de una solicitud de cuenta bancaria a partir de datos tabulares (no usa imágenes). Entrega un puntaje de riesgo y los factores que más lo empujan, para que la política (F5) y la explicación (F7) los usen.
 
 **Estado:** congelado para el MVP. Commit de referencia del análisis de equidad: `f0336ef`.

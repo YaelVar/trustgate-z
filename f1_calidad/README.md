@@ -1,5 +1,12 @@
 # F1 - Calidad de la captura
 
+Simple, deterministic checks on the image before looking for a face (F2a) or
+evaluating liveness (F2): minimum size, sharpness (variance of the Laplacian)
+and brightness. No training and no data, just fixed rules over pixels. The
+thresholds are starting values and are not calibrated against real data.
+
+_Details below are in Spanish._
+
 Comprobaciones simples y deterministas sobre la imagen, antes de buscar un
 rostro (F2a) o evaluar vida (F2). No hay entrenamiento ni datos: son reglas
 fijas sobre los pixeles. Codigo en `calidad.py`.
