@@ -8,6 +8,66 @@ viva?, ¿la captura tiene calidad suficiente?, ¿el riesgo de fraude es alto?, y
 ¿qué acción corresponde. Cada decisión queda registrada en una cadena de
 hashes que no guarda imágenes.
 
+## Arquitectura
+
+```mermaid
+flowchart LR
+    CLI["Cliente"]
+
+    subgraph LZ["IBM LinuxONE (s390x) — API F10 con TLS y token"]
+        direction LR
+        F1["F1 calidad"]
+        F2A["F2a presencia"]
+        F2["F2 vida"]
+        F5{"F5 politica"}
+        F3["F3 riesgo"]
+        F7["F7 explicacion"]
+        F8[("F8 auditoria<br/>cadena SHA-256<br/>sin imagenes")]
+    end
+
+    RESP["Respuesta"]
+
+    CLI -->|HTTPS + token| F1
+    F1 --> F2A
+    F2A --> F2
+    F2 --> F5
+    F3 --> F5
+    F5 --> F7
+    F5 --> F8
+    F7 --> RESP
+
+    classDef evidencia fill:#fff3bf,stroke:#f59e0b,color:#1e1e1e
+    classDef riesgo    fill:#ffd8a8,stroke:#f59e0b,color:#1e1e1e
+    classDef politica  fill:#d0bfff,stroke:#8b5cf6,color:#1e1e1e
+    classDef salida    fill:#b2f2bb,stroke:#22c55e,color:#1e1e1e
+    classDef registro  fill:#c3fae8,stroke:#06b6d4,color:#1e1e1e
+    classDef externo   fill:#a5d8ff,stroke:#4a9eed,color:#1e1e1e
+
+    class F1,F2A,F2 evidencia
+    class F3 riesgo
+    class F5 politica
+    class F7,RESP salida
+    class F8 registro
+    class CLI externo
+```
+
+### Cómo leerla
+
+1. El **cliente** envía la solicitud al servicio **F10** por HTTPS con un token
+   Bearer. Todo lo que está dentro del recuadro corre en **IBM LinuxONE
+   (s390x)**.
+2. La evidencia se evalúa en orden fijo: **F1 calidad** → **F2a presencia** →
+   **F2 vida**. El primer paso que falla decide la acción.
+3. **F3 riesgo** entra a **F5** como una cuarta señal, calculada sobre los datos
+   de la solicitud (no sobre la imagen).
+4. **F5 política** devuelve una de cuatro acciones: APROBAR, RECAPTURAR,
+   VERIFICAR o RETENER, siempre con un motivo.
+5. **F7 explicación** convierte esa acción en texto para la persona, y esa es
+   la **respuesta** que sale del sistema.
+6. **F8 auditoría** registra cada decisión en una cadena de hashes SHA-256.
+   Guarda acción, motivo, riesgo e identificador de sesión; **nunca imágenes ni
+   datos personales**.
+
 ## Módulos
 
 | Módulo | Qué hace | Código | Pruebas |
