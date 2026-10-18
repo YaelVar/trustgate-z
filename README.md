@@ -69,6 +69,11 @@ the code.
 6. **F8 audit** records every decision in a SHA-256 hash chain. It stores the
    action, reason, risk and session id; **never images or personal data**.
 
+## Media
+
+- **Video presentation:** [TrustGate Z on YouTube](https://youtu.be/PiZ3nOL1RUc) — 3-minute demo showing the system in action.
+- **Slides:** [TrustGate Z on Canva](https://canva.link/8ruj0crswd8x5cf) — presentation deck (10 slides).
+
 ## Modules
 
 | Module | What it does | Code | Tests |
