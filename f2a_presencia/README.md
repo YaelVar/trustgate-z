@@ -2,7 +2,7 @@
 
 Módulo de TrustGate Z que decide si una imagen contiene un rostro, antes de pasar a vida (F2).
 
-**Estado:** provisional. Resultados con 1.902 texturas usadas (de 2.018 descargadas); se repite con las 3.000 finales.
+**Estado:** provisional. 1.902 usadas de 2.018 descargadas.
 
 ## Qué hace
 
