@@ -72,6 +72,11 @@ que se usan en el código.
    Guarda acción, motivo, riesgo e identificador de sesión; **nunca imágenes ni
    datos personales**.
 
+## Media
+
+- **Video de presentación:** [TrustGate Z en YouTube](https://youtu.be/PiZ3nOL1RUc) — demo de 3 minutos en acción.
+- **Diapositivas:** [TrustGate Z en Canva](https://canva.link/8ruj0crswd8x5cf) — presentación (10 diapositivas).
+
 ## Módulos
 
 | Módulo | Qué hace | Código | Pruebas |
