@@ -26,10 +26,10 @@ Entrada: imagen de un rostro, recortada alrededor de la caja `_BB.txt` de CelebA
 
 | Procesamiento | AUC | APCER | BPCER |
 |---|---|---|---|
-| Recorte 128 px | 0,94 | 13,0 ± 3,0 % | 14,5 ± 2,1 % |
 | Igualado: 64 px + JPEG calidad 70 | 0,78 | 45,9 ± 3,9 % | 17,0 ± 2,0 % |
+| Recorte 128 px (otro procesamiento) | 0,94 | 13,0 ± 3,0 % | 14,5 ± 2,1 % |
 
-Las dos filas son un **rango**: la primera es el límite optimista y la segunda el conservador. Las tablas por tipo de ataque, iluminación y entorno están en `docs/f2_resultados_128px.md` y `docs/f2_resultados_64px_jpeg70.md`. Por tipo hay entre 28 y 74 ataques en prueba: los intervalos son anchos y los grupos con menos de 60 se marcan como poco confiables.
+Las dos filas son un **rango**: la primera (64 px) es el límite conservador; la segunda (128 px) es otro procesamiento, el límite optimista, y el más afectado por el atajo de captura (abajo): un control que solo usa ancho, alto y peso del archivo da AUC 0,987. Las tablas por tipo de ataque, iluminación y entorno están en `docs/f2_resultados_64px_jpeg70.md` y `docs/f2_resultados_128px.md`. Por tipo hay entre 28 y 74 ataques en prueba: los intervalos son anchos y los grupos con menos de 60 se marcan como poco confiables.
 
 ## Atajo de captura (límite principal)
 
@@ -40,7 +40,7 @@ Las dos filas son un **rango**: la primera es el límite optimista y la segunda 
 
 ### Qué no concluimos
 
-- No concluimos que F2 detecte vida con las cifras de la primera fila.
+- No concluimos que F2 detecte vida con las cifras de la fila de 128 px (la más optimista).
 - No se evaluó con otro conjunto de datos ni con tipos de ataque nuevos.
 - Recomendación para la política: un puntaje alto de F2 debería llevar a verificación, no a aprobar por sí solo.
 
