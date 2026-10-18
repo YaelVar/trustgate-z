@@ -65,7 +65,13 @@ Los datos, los pesos (`*.joblib`) y los rasgos (`*.npz`) no están en el reposit
 
 ## Licencias
 
-Rostros de uso no comercial (CelebA-Spoof, FFHQ). Texturas ambientCG: CC0 1.0. Los pesos no se publican.
+| Conjunto | URL | Licencia |
+|---|---|---|
+| CelebA-Spoof | — | Uso no comercial |
+| Real vs Fake Faces | https://zenodo.org/records/14532968 | CC BY 4.0 según el registro de Zenodo |
+| ambientCG (texturas) | — | CC0 1.0 |
+
+El uso no comercial se mantiene como la restricción conservadora que aplica al lado FFHQ; licencia de FFHQ pendiente de verificar en la fuente. Los pesos no se publican.
 
 ## Uso de IA
 
