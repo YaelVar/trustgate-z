@@ -31,28 +31,28 @@ PLANTILLAS = {
         "Tome la foto otra vez, con buena luz y sin movimiento.",
     ),
     (RECAPTURAR, MOTIVO_ROSTRO_AUSENTE): (
-        "No encontramos un rostro en la foto que envio.",
+        "No encontramos un rostro en la foto que envió.",
         "Tome la foto otra vez, de frente y con el rostro completo dentro del recuadro.",
     ),
     (VERIFICAR, MOTIVO_VIDA_NO_CONFIRMADA): (
         "No pudimos confirmar que la foto corresponda a la persona presente en el momento de la captura.",
-        "Una persona del equipo revisara su solicitud. Puede que le pidamos una verificacion adicional.",
+        "Una persona del equipo revisará su solicitud. Puede que le pidamos una verificación adicional.",
     ),
     (VERIFICAR, MOTIVO_RIESGO_MODERADO): (
-        "Su solicitud necesita una revision adicional antes de continuar.",
-        "Una persona del equipo revisara su solicitud y le informara el resultado.",
+        "Su solicitud necesita una revisión adicional antes de continuar.",
+        "Una persona del equipo revisará su solicitud y le informará el resultado.",
     ),
     (RETENER, MOTIVO_RIESGO_ALTO): (
-        "Su solicitud quedo detenida y no podemos continuar con ella en este momento.",
-        "Una persona del equipo la revisara. Si necesita mas informacion, se le pedira directamente.",
+        "Su solicitud quedó detenida y no podemos continuar con ella en este momento.",
+        "Una persona del equipo la revisará. Si necesita más información, se le pedirá directamente.",
     ),
     (APROBAR, MOTIVO_RIESGO_BAJO): (
         "Su solicitud fue aprobada.",
-        "No tiene que hacer nada mas. Le informaremos los siguientes pasos.",
+        "No tiene que hacer nada más. Le informaremos los siguientes pasos.",
     ),
     (APROBAR, MOTIVO_CALIDAD_NO_EVALUADA): (
         "Su solicitud fue aprobada. No se revisaron las condiciones de la foto.",
-        "No tiene que hacer nada mas. Le informaremos los siguientes pasos.",
+        "No tiene que hacer nada más. Le informaremos los siguientes pasos.",
     ),
 }
 
