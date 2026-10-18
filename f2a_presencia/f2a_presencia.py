@@ -1,18 +1,23 @@
 """F2a - Presencia de rostro (TrustGate Z).
 
-Modelo de CLASE UNICA: se ajusta SOLO con rostros. Las texturas (ambientCG, CC0) NO entrenan el modelo:
-sirven para fijar el umbral (grupo de umbral) y para medir falsos positivos (grupo de prueba).
+Modelo de DOS CLASES (por defecto, --modelo lr): regresion logistica sobre PCA (100 componentes) de HOG
+en gris, rostros frente a texturas. Las texturas (ambientCG, CC0) SI entrenan el modelo como clase negativa
+(grupo de entrenamiento de texturas); otros dos grupos de texturas, sin familias en comun con el anterior
+ni entre si, fijan el umbral y miden falsos positivos.
 
 Flujo:
   1. Rasgos: imagen -> recorte central cuadrado -> 128x128 -> gris -> HOG (sin color, para reducir el atajo
-     "las texturas se distinguen por color"). StandardScaler -> PCA -> OneClassSVM.
+     "las texturas se distinguen por color").
   2. Entrenamiento: rostros reales de CelebA-Spoof (Data/train/*/live, sin las discordantes) y de Real vs Fake
-     Faces (partes 'real' de train). Nunca se usan imagenes de prueba.
-  3. Umbral: el score que deja como maximo 5 % de falsos positivos en las texturas del GRUPO DE UMBRAL.
-  4. Prueba: FP en texturas del grupo de prueba; FN en rostros reservados (CelebA-Spoof Data/test/*/live y
-     Real vs Fake test/real). Con intervalos de Wilson al 95 %.
-  Las texturas se dividen por FAMILIA (Asphalt, Bricks, ...), no solo por archivo: hay variantes casi identicas
-  (Asphalt024A/B/C) que contaminarian la prueba si quedaran en grupos distintos.
+     Faces (partes 'real' de train), mas el grupo de entrenamiento de texturas (933, 47 familias). Nunca se
+     usan imagenes de prueba.
+  3. Umbral: el score que deja como maximo 5 % de falsos positivos en el grupo de umbral de texturas
+     (542, 24 familias).
+  4. Prueba: FP en el grupo de prueba de texturas (427, 24 familias); FN en rostros reservados (CelebA-Spoof
+     Data/test/*/live y Real vs Fake test/real). Con intervalos de Wilson al 95 %.
+  Las texturas se dividen por FAMILIA (Asphalt, Bricks, ...), no solo por archivo, en los tres grupos sin
+  familias en comun: hay variantes casi identicas (Asphalt024A/B/C) que contaminarian la prueba si quedaran
+  en grupos distintos.
 
 Filtro de rostros en las texturas (independiente de este modelo): --filtrar usa el cascade LBP frontal que trae
 scikit-image. Es un detector ajeno a F2a, para no quitar justo las texturas que F2a confundiria con rostros.

@@ -2,7 +2,7 @@
 
 Módulo de TrustGate Z que decide si una imagen contiene un rostro, antes de pasar a vida (F2).
 
-**Estado:** provisional. Resultados con 1.902 texturas; se repite con las 3.000 finales.
+**Estado:** provisional. Resultados con 1.902 texturas usadas (de 2.018 descargadas); se repite con las 3.000 finales.
 
 ## Qué hace
 
@@ -11,7 +11,7 @@ Entrada: una imagen. Salida: un score (mayor = más parecido a un rostro) y la d
 ## Datos y partición
 
 - Rostros: CelebA-Spoof (solo `live`, recortados con la caja `_BB.txt`) y el lado real de Real vs Fake Faces (FFHQ). Entrenamiento: 5.000 (1.000 + 4.000). Prueba: 500 + 500.
-- Texturas (negativos): ambientCG, CC0 1.0. Se descartan 116 con un detector independiente (cascada LBP de scikit-image), que **no** es este modelo.
+- Texturas (negativos): ambientCG, CC0 1.0. 2.018 descargadas; se descartan 116 con un detector independiente (cascada LBP de scikit-image), que **no** es este modelo; 1.902 usadas.
 - Tres grupos de texturas **sin familias en común** (familia = prefijo alfabético del nombre): entrenamiento 933 (47 familias), umbral 542 (24) y prueba 427 (24).
 
 ## Modelo
