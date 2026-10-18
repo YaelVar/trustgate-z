@@ -14,8 +14,8 @@ confirmada por el equipo: ver f5_politica/README.md para el estado y las fuentes
 En particular, vivo=False hoy se mapea a VERIFICAR (no a RETENER): es la propuesta
 mas conservadora mientras F2 (deteccion de vida) no tenga resultados cerrados.
 
-calidad_ok puede ser None cuando F1 (calidad) no esta disponible todavia (es
-opcional en el MVP). Decision: si es None, F5 NO bloquea por calidad y sigue con
+calidad_ok puede ser None cuando quien llama no evaluo la captura con F1.
+Decision: si es None, F5 NO bloquea por calidad y sigue con
 el resto de los pasos (rostro, vida, riesgo). rostro_presente y vivo son
 obligatorios: no aceptan None.
 """
@@ -113,7 +113,7 @@ def decidir(e: Evidencia) -> tuple[str, str]:
     # identico al False de Python, pero debe tratarse igual.
     if e.calidad_ok is not None and not e.calidad_ok:
         return RECAPTURAR, MOTIVO_CALIDAD_INSUFICIENTE
-    # calidad_ok is None: F1 no esta disponible (opcional en el MVP), no se bloquea por esto.
+    # calidad_ok is None: quien llama no evaluo la captura con F1; no se bloquea por esto.
 
     # Propuesta, pendiente de confirmacion del equipo.
     if not e.rostro_presente:

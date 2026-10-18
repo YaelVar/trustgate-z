@@ -46,7 +46,9 @@ conservador) mientras F2 siga siendo provisional. No implementado todavia.
 
 ## calidad_ok = None
 
-F1 (calidad) es opcional en el MVP. Si `calidad_ok` es `None`, F5 no bloquea
+F1 (calidad) esta incluido en el MVP, pero quien llama a F5 puede no haber
+evaluado la captura y enviar `calidad_ok` en `None`. Si `calidad_ok` es
+`None`, F5 no bloquea
 por calidad: sigue evaluando rostro, vida y riesgo con normalidad. Si la
 solicitud termina aprobada sin haber evaluado calidad, el motivo devuelto es
 `MOTIVO_CALIDAD_NO_EVALUADA`, para dejar constancia en la auditoria (F8) de
