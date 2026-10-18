@@ -229,3 +229,5 @@ data/
 *.pt
 .venv/
 .ipynb_checkpoints/
+
+f3_out/
