@@ -16,8 +16,8 @@ Uso:
          --discordantes ../datos/discordantes_train.txt --jobs 2 --out f2_out [--guardar-rasgos]
   (con --rasgos f2_out/f2_rasgos.npz se saltan la extraccion y se reutilizan los rasgos guardados)
 
-Escribe <out>/f2_resultados.md, <out>/f2_predicciones.csv (contrato de f3_equidad.py, sin rutas) y
-<out>/f2_model.joblib (PESOS: no subir a Git).
+Escribe <out>/f2_resultados.md, <out>/f2_predicciones.csv (el contrato de salida no tiene consumidor
+en el repo todavia, sin rutas) y <out>/f2_model.joblib (PESOS: no subir a Git).
 """
 import argparse
 import io
@@ -41,7 +41,8 @@ MODEL_VERSION = "f2-lgbm-0.1"
 SIZE = 128
 SEEDS = [42, 43, 44, 45, 46]
 Z = 1.96
-MIN_N = 60          # minimo de muestras por grupo para marcarlo como confiable (igual que f3_equidad.py)
+MIN_N = 60          # minimo de muestras por grupo para marcarlo como confiable; el contrato de
+                    # salida (f2_predicciones.csv) no tiene consumidor en el repo todavia
 # Codigos de CelebA-Spoof segun su documentacion (verificar contra la ficha del dataset)
 TIPO = {0: "live", 1: "Photo", 2: "Poster", 3: "A4", 4: "Face Mask", 5: "Upper Body Mask", 6: "Region Mask",
         7: "PC", 8: "Pad", 9: "Phone", 10: "3D Mask"}
