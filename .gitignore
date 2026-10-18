@@ -234,3 +234,6 @@ f2a_out/
 *.joblib
 *.npz
 f3_out/
+
+# Bitacoras de auditoria generadas por F10 (F8 las escribe en tiempo de ejecucion)
+*.jsonl
