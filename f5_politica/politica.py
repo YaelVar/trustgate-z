@@ -33,7 +33,7 @@ RETENER = "RETENER"
 
 # ---- Motivos (constantes estables: comparar por igualdad, no por texto) ----
 MOTIVO_CALIDAD_INSUFICIENTE = "calidad de captura insuficiente"
-MOTIVO_CALIDAD_NO_EVALUADA = "calidad no evaluada (F1 ausente)"
+MOTIVO_CALIDAD_NO_EVALUADA = "calidad no evaluada"
 MOTIVO_ROSTRO_AUSENTE = "no se detecto un rostro en la captura"
 MOTIVO_VIDA_NO_CONFIRMADA = "no se confirmo que sea una persona viva; requiere verificacion"
 MOTIVO_RIESGO_ALTO = "riesgo de fraude alto"
