@@ -230,4 +230,7 @@ data/
 .venv/
 .ipynb_checkpoints/
 
+f2a_out/
+*.joblib
+*.npz
 f3_out/
